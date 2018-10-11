@@ -2,7 +2,7 @@
 	"name": "fcc-socialauth",
 	"author": "http://github.com/JosephLivengood",
 	"version": "0.0.1",
-	"description": "What am I about?",
+	"description": "fCC - Implementation of Social Authentication Challenges",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js"
@@ -23,7 +23,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://hyperdev.com/#!/project/welcome-project"
+		"url": "https://github.com/timhagn/th-fcc-socialauth.git"
 	},
 	"keywords": [
 		"node",
