@@ -7,6 +7,8 @@ const fccTesting  = require('./freeCodeCamp/fcctesting.js');
 const session     = require('express-session');
 const mongo       = require('mongodb').MongoClient;
 const passport    = require('passport');
+// Add GitHub.
+const GitHubStrategy = require('passport-github').Strategy;
 
 const app = express();
 
@@ -57,6 +59,16 @@ mongo.connect(process.env.DATABASE, { useNewUrlParser: true }, (err, client) => 
         /*
         *  ADD YOUR CODE BELOW
         */
+        passport.use(new GitHubStrategy({
+              clientID: process.env.GITHUB_CLIENT_ID,
+              clientSecret: process.env.GITHUB_CLIENT_SECRET,
+              callbackURL: 'https://th-fcc-socialauth.glitch.me/auth/github/callback'
+            },
+            function(accessToken, refreshToken, profile, cb) {
+              console.log(profile);
+              //Database logic here with callback containing our user object
+            }
+        ));
 
         app.route('/auth/github')
             .get(passport.authenticate('github'));
