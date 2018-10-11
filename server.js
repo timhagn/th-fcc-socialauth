@@ -17,12 +17,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'pug')
 
-mongo.connect(process.env.DATABASE, (err, db) => {
+mongo.connect(process.env.DATABASE, { useNewUrlParser: true }, (err, client) => {
     if(err) {
         console.log('Database error: ' + err);
     } else {
         console.log('Successful database connection');
-      
+        let db = client.db('user_socauth');
+
         app.use(session({
           secret: process.env.SESSION_SECRET,
           resave: true,
@@ -55,7 +56,10 @@ mongo.connect(process.env.DATABASE, (err, db) => {
         /*
         *  ADD YOUR CODE BELOW
         */
-      
+        app.route('/login')
+            .post(passport.authenticate('local', { failureRedirect: '/' }), (req,res) => {
+              res.redirect('/profile');
+            });
       
       
       
