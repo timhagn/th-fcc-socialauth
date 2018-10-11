@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 
 const express     = require('express');
 const bodyParser  = require('body-parser');
@@ -56,8 +57,12 @@ mongo.connect(process.env.DATABASE, { useNewUrlParser: true }, (err, client) => 
         /*
         *  ADD YOUR CODE BELOW
         */
-        app.route('/login')
-            .post(passport.authenticate('local', { failureRedirect: '/' }), (req,res) => {
+
+        app.route('/auth/github')
+            .get(passport.authenticate('github'));
+
+        app.route('/auth/github/callback')
+            .get(passport.authenticate('github', { failureRedirect: '/' }), (req,res) => {
               res.redirect('/profile');
             });
       
